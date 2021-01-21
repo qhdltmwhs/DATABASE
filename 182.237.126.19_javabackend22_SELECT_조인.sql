@@ -74,3 +74,68 @@ where e.deptno = d.deptno and (e.sal >= g.losal and e.sal <= g.hisal);
 
 --SQL 1999(SQL3) 조인[ANSI조인, 표준조인]
 --CROSS JOIN
+select * from emp cross join dept;
+--select * from emp, dept; (Oracel)
+
+--NATURAL JOIN
+--inner join (생략하면 자동으로 inner join이 된다.)
+select e.empno, e.ename, d.dname, d.loc from emp e natural inner join dept d; 
+
+--left outer join
+select e.empno, e.ename, d.dname, d.loc from emp e natural left outer join dept d;
+
+--right outer join
+select e.empno, e.ename, d.dname, d.loc from emp e natural right outer join dept d;
+
+--full outer join
+select e.empno, e.ename, d.dname, d.loc from emp e natural full outer join dept d;
+
+--using구문
+--inner join
+select e.empno, e.ename, d.dname, d.loc from emp e join dept d using(deptno);
+select e.empno, e.ename, d.dname, d.loc from emp e inner join dept d using(deptno); 
+
+--left outer join
+select e.empno, e.ename, d.dname, d.loc from emp e left outer join dept d using(deptno);
+
+
+--join ~on
+select e.empno, e.ename, d.dname, d.loc from emp e join dept d on e.deptno = d.deptno; 
+
+--테이블2개 (emp + salgrade)
+select  e.empno, e.ename, e.sal, g.grade
+from emp e join salgrade g
+on e.sal >= g.losal and e.sal <= g.hisal;
+
+--테이블3개 (emp + dept + salgrade)
+select e.*, d.* , g.grade
+from emp e
+join dept d on e.deptno = d.deptno
+join salgrade g on e.sal >= g.losal and e.sal <= g.hisal;
+
+--self join
+select e.empno "사원번호", e.ename "사원이름", 
+         m.empno "매니져번호", m.ename "매니져이름" 
+from emp e
+join emp m
+on e.mgr = m.empno;
+
+--inner join
+select e.empno "사원번호", e.ename "사원이름", 
+         m1.empno "매니져번호", m1.ename "매니져이름", 
+         m2.empno "메니져의매니져사번", m2.ename "매니져의매니져이름"
+from emp e
+join emp m1
+on e.mgr = m1.empno
+join emp m2
+on m1.mgr = m2.empno;
+
+--out join
+select e.empno "사원번호", e.ename "사원이름", 
+         m1.empno "매니져번호", m1.ename "매니져이름", 
+         m2.empno "메니져의매니져사번", m2.ename "매니져의매니져이름"
+from emp e
+left outer join emp m1
+on e.mgr = m1.empno
+left outer join emp m2
+on m1.mgr = m2.empno;
