@@ -1,8 +1,8 @@
  1. 인라인뷰를 사용해서 Student테이블과 department 테이블을 사용해서
     학과별로 학생들의 최대키와 몸무게 학과 이름을 출력하세요
 select * from student;
-select deptno from student
-group by deptno;
+select deptno1, deptno2 from student
+group by deptno1, deptno2;
 select * from department;
 
 -------------------------------------------------------------------
